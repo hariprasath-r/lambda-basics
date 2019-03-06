@@ -1,7 +1,5 @@
 package in.hp.java.lambdabasics3;
 
-import in.hp.java.lambdabasics2.HelloWorldGreeting;
-
 public class Greeter {
 
     private void greet(Greeting greeting) {
