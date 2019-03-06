@@ -1,4 +1,4 @@
-package in.hp.java.lambdabasics4;
+package in.hp.java.lambdabasics4.examples;
 
 public class TypeInferenceExample {
 
