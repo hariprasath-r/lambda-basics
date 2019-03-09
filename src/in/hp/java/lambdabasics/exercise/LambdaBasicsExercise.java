@@ -36,7 +36,37 @@ public class LambdaBasicsExercise {
 		System.out.println("===========================");
 		
 		//create method that prints all lastnames starting with R
-		printLastNameStartingWithFirstArgument("R", personList);
+		//printLastNameStartingWithFirstArgument("R", personList);
+		printBasedOnCondition(personList, new Condition() {
+			/*
+			 * Implementation to print all persons, who has lastname starting with R
+			 * (non-Javadoc)
+			 * @see in.hp.java.lambdabasics.exercise.LambdaBasicsExercise.Condition#test(in.hp.java.lambdabasics.exercise.Person)
+			 */
+			@Override
+			public boolean test(Person p) {
+				if(p.getLastName().startsWith("R"))
+					return true;
+				return false;
+			}
+		});
+		
+		System.out.println("==========================");
+		
+		printBasedOnCondition(personList, new Condition() {
+			/*
+			 * Implementation to print all persons, whose firstname starts with H
+			 * (non-Javadoc)
+			 * @see in.hp.java.lambdabasics.exercise.LambdaBasicsExercise.Condition#test(in.hp.java.lambdabasics.exercise.Person)
+			 */
+			@Override
+			public boolean test(Person p) {
+				if(p.getFirstName().startsWith("H"))
+					return true;
+				return false;
+			}
+		});
+		
 	}
 	
 	/**
@@ -58,10 +88,33 @@ public class LambdaBasicsExercise {
 		}
 	}
 	
+	/**
+	 * Non interface method of implementation, what if we want to filter based on firstname
+	 * Since we are not getting that flexibility, we are going for interface approach
+	 * @param lastNameBeginingLetter
+	 * @param personList
+	 */
 	static void printLastNameStartingWithFirstArgument(String lastNameBeginingLetter, List<Person> personList) {
 		for (Person person : personList) {
 			if(person.getLastName().startsWith(lastNameBeginingLetter))
 				System.out.println(person);
+		}
+	}
+	
+	/**
+	 * Here we can have any number of implementations, either anonymously or class implementation
+	 * @author Hariprasath
+	 *
+	 */
+	interface Condition {
+		public boolean test(Person p);
+	}
+	
+	static void printBasedOnCondition(List<Person> personList, Condition c) {
+		for (Person p : personList) {
+			//Checking for implemented condition
+			if(c.test(p))
+				System.out.println(p);
 		}
 	}
 
