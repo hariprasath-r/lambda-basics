@@ -3,6 +3,7 @@ package in.hp.java.lambdabasics.example;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import in.hp.java.lambdabasics.exercise.Person;
@@ -38,39 +39,36 @@ public class FunctionalInterfaceExample {
 		 * 		return true;
 		 * });
 		 */
-		printBasedOnCondition(personList, p -> true);
+		performBasedOnCondition(personList, p -> true, p -> System.out.println(p));
 		
 		System.out.println("===========================");
 		
 		//create method that prints all lastnames starting with R
-		printBasedOnCondition(personList, p -> {
+		performBasedOnCondition(personList, p -> {
 			if(p.getLastName().startsWith("R"))
 				return true;
 			return false;
-		});
+		}, p -> System.out.println(p));
 		
 		System.out.println("==========================");
 		
 		/*
 		 * Lambda expression to print names starting with H
 		 */
-		printBasedOnCondition(personList, p -> p.getFirstName().startsWith("H"));
+		performBasedOnCondition(personList, p -> p.getFirstName().startsWith("H"), p -> System.out.println(p.getFirstName()));
 
 	}
 	
 	/**
-	 * Here Condition is an interface created by us to take in a condition and return a boolean
-	 * Replacing this Condition interface with Predicate interface, which has the same method signature and comes out of the box
+	 * @param personList
+	 * @param predicate - Out of the box Functional Interface that accepts an object and return boolean
+	 * @param consume - Out of the box Functional Interface that accepts an object and return void 
 	 */
-	interface Condition {
-		public boolean test(Person p);
-	}
-	
-	static void printBasedOnCondition(List<Person> personList, Predicate<Person> predicate) {
+	static void performBasedOnCondition(List<Person> personList, Predicate<Person> predicate, Consumer<Person> consume) {
 		for (Person p : personList) {
 			//Checking for implemented condition
 			if(predicate.test(p))
-				System.out.println(p);
+				consume.accept(p);
 		}
 	}
 
